@@ -4,7 +4,7 @@ This repository contains my C++ solutions to the coding challenges from [codingc
 
 ## Challenges
 
-| #   | Challenge       | Status      |
-| --- | --------------- | ----------- |
-| 1   | [WC Tool]()     | In Progress |
-| 2   | [JSON Parser]() | Not Started |
+| #   | Challenge                                 | Status      |
+| --- | ----------------------------------------- | ----------- |
+| 1   | [WC Tool](challenges/01-wc-tool/)         | In Progress |
+| 2   | [JSON Parser](challenges/02-json-parser/) | Not Started |
