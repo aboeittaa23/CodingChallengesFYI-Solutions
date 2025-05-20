@@ -27,6 +27,10 @@ bool CCWC::parseArgs(int argc, char *argv[])
     {
         countBytesFlag = true;
     }
+    if (arg == "-l")
+    {
+        countLinesFlag = true;
+    }
 
     return true;
 }
@@ -38,6 +42,11 @@ void CCWC::evaluate()
     {
         size_t byteCount = countBytes();
         cout << byteCount << " " << filename << endl;
+    }
+    if (countLinesFlag)
+    {
+        size_t lineCount = countLines();
+        cout << lineCount << " " << filename << endl;
     }
 }
 
@@ -51,4 +60,23 @@ size_t CCWC::countBytes()
     }
 
     return file.tellg();
+}
+
+size_t CCWC::countLines()
+{
+    ifstream file(filename);
+
+    if (!file.is_open())
+    {
+        cerr << "Error: Could not open file " << filename << endl;
+    }
+
+    size_t lineCount{0};
+    string line;
+    while (getline(file, line))
+    {
+        lineCount++;
+    }
+
+    return lineCount;
 }
