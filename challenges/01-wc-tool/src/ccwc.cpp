@@ -4,7 +4,13 @@
 
 using namespace std;
 
-CCWC::CCWC() {}
+CCWC::CCWC()
+{
+    countBytesFlag = false;
+    countLinesFlag = false;
+    countWordsFlag = false;
+    countCharsFlag = false;
+}
 
 bool CCWC::parseArgs(int argc, char *argv[])
 {
@@ -19,16 +25,25 @@ bool CCWC::parseArgs(int argc, char *argv[])
 
     if (arg == "-c")
     {
-        size_t byteCount = countBytes();
-        cout << byteCount << " " << filename << endl;
+        countBytesFlag = true;
     }
 
     return true;
 }
 
+void CCWC::evaluate()
+{
+
+    if (countBytesFlag)
+    {
+        size_t byteCount = countBytes();
+        cout << byteCount << " " << filename << endl;
+    }
+}
+
 size_t CCWC::countBytes()
 {
-    ifstream file(filename, std::ios::binary | std::ios::ate);
+    ifstream file(filename, ios::binary | ios::ate);
 
     if (!file.is_open())
     {
