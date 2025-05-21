@@ -30,3 +30,12 @@ echo "wc output: $expected"
 # Actual count using ccwc implementation 
 actual=$(./ccwc -w "$filename")
 echo "ccwc output:  $actual"
+
+echo -e "\n----------- Step 4: Test words characters (-m) -----------"
+# Expected count using system's wc
+expected=$(wc -m "$filename")
+echo "wc output: $expected"
+
+# Actual count using ccwc implementation 
+actual=$(./ccwc -m "$filename")
+echo "ccwc output: $actual"
