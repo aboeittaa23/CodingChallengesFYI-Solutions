@@ -45,16 +45,19 @@ bool CCWC::parseArgs(int argc, char *argv[])
             filename = arg;
         }
     }
+
+    if (!countBytesFlag && !countLinesFlag && !countWordsFlag && !countCharsFlag)
+    {
+        countBytesFlag = true;
+        countLinesFlag = true;
+        countWordsFlag = true;
+    }
+
     return true;
 }
 
 void CCWC::evaluate()
 {
-
-    if (countBytesFlag)
-    {
-        cout << countBytes() << " ";
-    }
     if (countLinesFlag)
     {
         cout << countLines() << " ";
@@ -62,6 +65,10 @@ void CCWC::evaluate()
     if (countWordsFlag)
     {
         cout << countWords() << " ";
+    }
+    if (countBytesFlag)
+    {
+        cout << countBytes() << " ";
     }
     if (countCharsFlag)
     {

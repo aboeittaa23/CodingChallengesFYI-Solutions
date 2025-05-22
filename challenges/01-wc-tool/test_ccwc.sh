@@ -39,3 +39,12 @@ echo "wc output: $expected"
 # Actual count using ccwc implementation 
 actual=$(./ccwc -m "$filename")
 echo "ccwc output: $actual"
+
+echo -e "\n----------- Step 5: Test default option -----------"
+# Expected count using system's wc
+expected=$(wc "$filename")
+echo "wc output: $expected"
+
+# Actual count using ccwc implementation 
+actual=$(./ccwc "$filename")
+echo "ccwc output:   $actual"
