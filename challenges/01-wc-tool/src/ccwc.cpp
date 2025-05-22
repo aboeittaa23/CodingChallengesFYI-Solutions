@@ -131,7 +131,9 @@ size_t CCWC::countWords()
 size_t CCWC::countChars()
 {
 
-    ifstream file(filename);
+    locale::global(std::locale(""));
+
+    wifstream file(filename);
 
     if (!file.is_open())
     {
@@ -139,8 +141,10 @@ size_t CCWC::countChars()
         return 0;
     }
 
+    file.imbue(locale(""));
+
     size_t chars = 0;
-    char c;
+    wchar_t c;
     while (file.get(c))
     {
         chars++;
