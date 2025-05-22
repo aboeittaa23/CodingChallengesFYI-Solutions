@@ -24,7 +24,7 @@ echo "wc output: $expected"
 actual=$(./ccwc -w "$filename")
 echo "ccwc output:  $actual"
 
-echo -e "\n----------- Step 4: Test words characters (-m) -----------"
+echo -e "\n----------- Step 4: Test characters count (-m) -----------"
 expected=$(wc -m "$filename")
 echo "wc output: $expected"
 actual=$(./ccwc -m "$filename")
