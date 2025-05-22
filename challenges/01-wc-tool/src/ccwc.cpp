@@ -20,26 +20,31 @@ bool CCWC::parseArgs(int argc, char *argv[])
         return false;
     }
 
-    string arg = argv[1];
-    filename = argv[2];
+    for (int i = 1; i < argc; i++)
+    {
+        string arg = argv[i];
 
-    if (arg == "-c")
-    {
-        countBytesFlag = true;
+        if (arg == "-c")
+        {
+            countBytesFlag = true;
+        }
+        else if (arg == "-l")
+        {
+            countLinesFlag = true;
+        }
+        else if (arg == "-w")
+        {
+            countWordsFlag = true;
+        }
+        else if (arg == "-m")
+        {
+            countCharsFlag = true;
+        }
+        else
+        {
+            filename = arg;
+        }
     }
-    if (arg == "-l")
-    {
-        countLinesFlag = true;
-    }
-    if (arg == "-w")
-    {
-        countWordsFlag = true;
-    }
-    if (arg == "-m")
-    {
-        countCharsFlag = true;
-    }
-
     return true;
 }
 
@@ -48,24 +53,21 @@ void CCWC::evaluate()
 
     if (countBytesFlag)
     {
-        size_t byteCount = countBytes();
-        cout << byteCount << " " << filename << endl;
+        cout << countBytes() << " ";
     }
     if (countLinesFlag)
     {
-        size_t lineCount = countLines();
-        cout << lineCount << " " << filename << endl;
+        cout << countLines() << " ";
     }
     if (countWordsFlag)
     {
-        size_t wordCount = countWords();
-        cout << wordCount << " " << filename << endl;
+        cout << countWords() << " ";
     }
     if (countCharsFlag)
     {
-        size_t charCount = countChars();
-        cout << charCount << " " << filename << endl;
+        cout << countChars() << " ";
     }
+    cout << filename << endl;
 }
 
 size_t CCWC::countBytes()
