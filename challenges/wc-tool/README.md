@@ -8,6 +8,7 @@ This challenge is from [Coding Challenges](https://codingchallenges.fyi/challeng
 
 ```bash
 make
+make clean    # Remove build files
 ```
 
 ## Usage
