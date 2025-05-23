@@ -36,4 +36,10 @@ echo "wc output: $expected"
 actual=$(./ccwc "$filename")
 echo "ccwc output:   $actual"
 
+echo -e "\n----------- Step 6: Test Read from input -----------"
+expected=$(cat "$filename" | wc -c)
+echo "wc output: $expected"
+actual=$(cat "$filename" | ./ccwc -c)
+echo "ccwc output: $actual"
+
 echo -e "\n===============================================\n"

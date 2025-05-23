@@ -1,15 +1,16 @@
 #include "ccwc.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
-CCWC::CCWC()
+CCWC::CCWC() : countBytesFlag(false),
+               countLinesFlag(false),
+               countWordsFlag(false),
+               countCharsFlag(false),
+               readFromInput(false)
 {
-    countBytesFlag = false;
-    countLinesFlag = false;
-    countWordsFlag = false;
-    countCharsFlag = false;
 }
 
 bool CCWC::parseArgs(int argc, char *argv[])
@@ -44,6 +45,8 @@ bool CCWC::parseArgs(int argc, char *argv[])
         {
             filename = arg;
         }
+
+        readFromInput = filename.empty();
     }
 
     if (!countBytesFlag && !countLinesFlag && !countWordsFlag && !countCharsFlag)
@@ -74,11 +77,19 @@ void CCWC::evaluate()
     {
         cout << countChars() << " ";
     }
-    cout << filename << endl;
+    if (!readFromInput)
+    {
+        cout << filename;
+    }
+    cout << endl;
 }
 
 size_t CCWC::countBytes()
 {
+    if (readFromInput)
+    {
+        return 0;
+    }
     ifstream file(filename, ios::binary | ios::ate);
 
     if (!file.is_open())
@@ -151,4 +162,11 @@ size_t CCWC::countChars()
     }
 
     return chars;
+}
+
+string CCWC::readInput()
+{
+    stringstream buffer;
+    buffer << cin.rdbuf();
+    return buffer.str();
 }

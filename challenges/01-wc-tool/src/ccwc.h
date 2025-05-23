@@ -6,17 +6,15 @@
 class CCWC
 {
 public:
-    // Constructor
     CCWC();
 
-    // Parse command line arguments
     bool parseArgs(int argc, char *argv[]);
 
-    // Evaluate and output the results
     void evaluate();
 
 private:
     std::string filename;
+    std::string readInput();
 
     size_t countBytes();
     size_t countLines();
@@ -27,6 +25,7 @@ private:
     bool countLinesFlag;
     bool countWordsFlag;
     bool countCharsFlag;
+    bool readFromInput;
 };
 
 #endif
