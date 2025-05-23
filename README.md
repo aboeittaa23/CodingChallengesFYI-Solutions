@@ -10,7 +10,7 @@ Each challenge directory contains a `Makefile`. To build and run:
 cd challenges/wc-tool/
 make                    # Build the project
 ./ccwc test.txt         # Run the tool
-make clean             # Clean build files
+make clean              # Clean build files
 ```
 
 ## Challenges
