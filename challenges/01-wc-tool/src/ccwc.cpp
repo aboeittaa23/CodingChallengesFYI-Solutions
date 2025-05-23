@@ -61,6 +61,10 @@ bool CCWC::parseArgs(int argc, char *argv[])
 
 void CCWC::evaluate()
 {
+    if (readFromInput)
+    {
+        inputContent = readInput();
+    }
     if (countLinesFlag)
     {
         cout << countLines() << " ";
@@ -88,8 +92,9 @@ size_t CCWC::countBytes()
 {
     if (readFromInput)
     {
-        return 0;
+        return inputContent.size();
     }
+
     ifstream file(filename, ios::binary | ios::ate);
 
     if (!file.is_open())
@@ -102,6 +107,16 @@ size_t CCWC::countBytes()
 
 size_t CCWC::countLines()
 {
+    if (readFromInput)
+    {
+        size_t lineCount = 0;
+        for (char c : inputContent)
+        {
+            lineCount += c == '\n';
+        }
+        return lineCount;
+    }
+
     ifstream file(filename);
 
     if (!file.is_open())
@@ -121,6 +136,26 @@ size_t CCWC::countLines()
 
 size_t CCWC::countWords()
 {
+    if (readFromInput)
+    {
+        size_t wordCount = 0;
+        bool inWord = false;
+
+        for (char c : inputContent)
+        {
+            if (isspace(c))
+            {
+                inWord = false;
+            }
+            else if (!inWord)
+            {
+                inWord = true;
+                wordCount++;
+            }
+        }
+        return wordCount;
+    }
+
     ifstream file(filename);
 
     if (!file.is_open())

@@ -15,6 +15,7 @@ public:
 private:
     std::string filename;
     std::string readInput();
+    std::string inputContent;
 
     size_t countBytes();
     size_t countLines();
