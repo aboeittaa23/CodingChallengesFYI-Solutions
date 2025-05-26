@@ -1,4 +1,4 @@
-#include "src/ccwc.h"
+#include "ccwc.h"
 
 int main(int argc, char *argv[])
 {
