@@ -2,6 +2,7 @@
 #define URL_SHORTENER_H
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
@@ -11,10 +12,10 @@ public:
     UrlShortener();
 
     // Create short URL from long URL
-    string shortenUrl();
+    string shortenUrl(string longUrl);
 
     // Get long URL from short code
-    string expandUrl();
+    string expandUrl(string shortUrl);
 
 private:
     // Convert number to base36 string

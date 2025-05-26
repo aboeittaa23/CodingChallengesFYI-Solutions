@@ -7,10 +7,8 @@ UrlShortener::UrlShortener()
     // Constructor - initialize any member variables here
 }
 
-string UrlShortener::shortenUrl()
+string UrlShortener::shortenUrl(string longUrl)
 {
-    string longUrl = "https://example.com";
-
     // Generate Hash
     hash<string> hasher;
     int hashVal = hasher(longUrl);
@@ -24,11 +22,11 @@ string UrlShortener::shortenUrl()
     return shortUrl;
 }
 
-string UrlShortener::expandUrl()
+string UrlShortener::expandUrl(string shortUrl)
 {
-    // TODO: Implement URL expansion logic
-    cout << "expandUrl called" << endl;
-    return "https://example.com"; // Stub return
+    string longUrl = urlMap[shortUrl];
+    cout << "expandUrl: " << longUrl << endl;
+    return longUrl;
 }
 
 string UrlShortener::toBase36(size_t hashVal)
@@ -51,6 +49,7 @@ string UrlShortener::toBase36(size_t hashVal)
 
     while (result.length() < 8)
     {
+
         result = "0" + result;
     }
 
