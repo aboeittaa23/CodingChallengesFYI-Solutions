@@ -1,7 +1,22 @@
 #!/bin/bash
 
-# Test script for ccwc
+
+# Check if filename argument is provided
+if [ $# -eq 0 ]; then
+    echo "Error: No test file provided"
+    echo "Usage: $0 <filename>"
+    echo "Example: $0 test.txt"
+    exit 1
+fi
+
 filename=$1
+
+# Check if file exists
+if [ ! -f "$filename" ]; then
+    echo "Error: File '$filename' does not exist"
+    exit 1
+fi
+
 echo -e "\n=========== Testing ccwc on file: $filename ===========\n"
 
 echo -e "----------- Step 1: Test bytes count (-c) -----------" 
