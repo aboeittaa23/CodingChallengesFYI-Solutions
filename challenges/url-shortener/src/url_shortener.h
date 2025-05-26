@@ -15,6 +15,13 @@ public:
 
     // Get long URL from short code
     string expandUrl();
+
+private:
+    // Convert number to base36 string
+    string toBase36(int num);
+
+    // Storage for URL mappings
+    unordered_map<string, string> urlMap;
 };
 
 #endif
