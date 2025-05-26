@@ -52,3 +52,15 @@ string UrlShortener::toBase36(size_t hashVal)
 
     return result;
 }
+
+bool UrlShortener::saveToFile(string filename)
+{
+    // TODO: implement
+    return false;
+}
+
+bool UrlShortener::loadFromFile(string filename)
+{
+    // TODO: implement
+    return false;
+}

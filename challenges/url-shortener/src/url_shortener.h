@@ -23,6 +23,10 @@ private:
 
     // Storage for URL mappings
     unordered_map<string, string> urlMap;
+
+    bool saveToFile(string filename);
+
+    bool loadFromFile(string filename);
 };
 
 #endif
