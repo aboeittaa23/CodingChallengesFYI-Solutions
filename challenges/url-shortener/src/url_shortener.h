@@ -18,7 +18,7 @@ public:
 
 private:
     // Convert number to base36 string
-    string toBase36(int num);
+    string toBase36(size_t hashVal);
 
     // Storage for URL mappings
     unordered_map<string, string> urlMap;

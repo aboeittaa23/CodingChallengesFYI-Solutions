@@ -13,10 +13,10 @@ string UrlShortener::shortenUrl()
 
     // Generate Hash
     hash<string> hasher;
-    int hashValue = hasher(longUrl);
+    int hashVal = hasher(longUrl);
 
     // Convert to 8-char base36
-    string shortUrl = toBase36(hashValue).substr(0, 8);
+    string shortUrl = toBase36(hashVal).substr(0, 8);
 
     urlMap[shortUrl] = longUrl;
 
@@ -31,8 +31,28 @@ string UrlShortener::expandUrl()
     return "https://example.com"; // Stub return
 }
 
-string UrlShortener::toBase36(int hashValue)
+string UrlShortener::toBase36(size_t hashVal)
 {
-    // TODO: Implement hash function
-    return "01234567";
+
+    string result = "";
+    string chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+    while (hashVal > 0)
+    {
+        int remainder = hashVal % 36;
+        result = chars[remainder] + result;
+        hashVal /= 36;
+    }
+
+    if (result.empty())
+    {
+        result = "0";
+    }
+
+    while (result.length() < 8)
+    {
+        result = "0" + result;
+    }
+
+    return result;
 }
