@@ -40,7 +40,6 @@ out/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-Makefile
 
 # IDE specific files
 .vscode/
