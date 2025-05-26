@@ -8,7 +8,7 @@ string UrlShortener::shortenUrl(string longUrl)
 {
     // Generate Hash
     hash<string> hasher;
-    int hashVal = hasher(longUrl);
+    size_t hashVal = hasher(longUrl);
 
     // Convert to 8-char base36
     string shortUrl = toBase36(hashVal).substr(0, 8);
