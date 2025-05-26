@@ -2,10 +2,7 @@
 #include <iostream>
 #include <functional>
 
-UrlShortener::UrlShortener()
-{
-    // Constructor - initialize any member variables here
-}
+UrlShortener::UrlShortener() {}
 
 string UrlShortener::shortenUrl(string longUrl)
 {
