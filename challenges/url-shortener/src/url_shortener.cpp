@@ -35,9 +35,7 @@ string UrlShortener::shortenUrl(string longUrl)
 
 string UrlShortener::expandUrl(string shortUrl)
 {
-    string longUrl = urlMap[shortUrl];
-    cout << "expandUrl: " << longUrl << endl;
-    return longUrl;
+    return urlMap[shortUrl];
 }
 
 string UrlShortener::toBase36(size_t hashVal)
