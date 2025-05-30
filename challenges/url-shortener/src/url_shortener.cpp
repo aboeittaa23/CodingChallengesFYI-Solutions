@@ -1,8 +1,12 @@
 #include "url_shortener.h"
 #include <iostream>
 #include <functional>
+#include <fstream>
 
-UrlShortener::UrlShortener() {}
+UrlShortener::UrlShortener()
+{
+    dataFilePath = "urls.csv";
+}
 
 string UrlShortener::shortenUrl(string longUrl)
 {
@@ -13,9 +17,10 @@ string UrlShortener::shortenUrl(string longUrl)
     // Convert to 8-char base36
     string shortUrl = toBase36(hashVal).substr(0, 8);
 
+    // Store URL
     urlMap[shortUrl] = longUrl;
+    saveToFile(longUrl, shortUrl);
 
-    cout << "Shortened: " << longUrl << " -> " << shortUrl << endl;
     return shortUrl;
 }
 
@@ -53,13 +58,20 @@ string UrlShortener::toBase36(size_t hashVal)
     return result;
 }
 
-bool UrlShortener::saveToFile(string filename)
+void UrlShortener::saveToFile(string longUrl, string shortUrl)
 {
-    // TODO: implement
-    return false;
+    ofstream file(dataFilePath, ios::app);
+
+    if (!file.is_open())
+    {
+        cerr << "Error: Could not append to file " << dataFilePath << endl;
+    }
+
+    file << shortUrl << "," << longUrl << endl;
+    file.close();
 }
 
-bool UrlShortener::loadFromFile(string filename)
+bool UrlShortener::loadFromFile()
 {
     // TODO: implement
     return false;

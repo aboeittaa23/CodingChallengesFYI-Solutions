@@ -18,15 +18,17 @@ public:
     string expandUrl(string shortUrl);
 
 private:
+    string dataFilePath;
+
     // Convert number to base36 string
     string toBase36(size_t hashVal);
 
     // Storage for URL mappings
     unordered_map<string, string> urlMap;
 
-    bool saveToFile(string filename);
+    void saveToFile(string longUrl, string shortUrl);
 
-    bool loadFromFile(string filename);
+    bool loadFromFile();
 };
 
 #endif
