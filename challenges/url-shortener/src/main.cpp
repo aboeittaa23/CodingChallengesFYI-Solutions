@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string testUrl = "https://example.com";
+    string testUrl = "https://bestbuy.com";
     UrlShortener urlShortner_obj;
 
     string shortUrl = urlShortner_obj.shortenUrl(testUrl);

@@ -26,9 +26,9 @@ private:
     // Storage for URL mappings
     unordered_map<string, string> urlMap;
 
-    void saveToFile(string longUrl, string shortUrl);
+    void saveUrl(string longUrl, string shortUrl);
 
-    bool loadFromFile();
+    void loadUrls();
 };
 
 #endif

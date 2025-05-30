@@ -2,10 +2,12 @@
 #include <iostream>
 #include <functional>
 #include <fstream>
+#include <ostream>
 
 UrlShortener::UrlShortener()
 {
     dataFilePath = "urls.csv";
+    loadUrls();
 }
 
 string UrlShortener::shortenUrl(string longUrl)
@@ -18,8 +20,15 @@ string UrlShortener::shortenUrl(string longUrl)
     string shortUrl = toBase36(hashVal).substr(0, 8);
 
     // Store URL
-    urlMap[shortUrl] = longUrl;
-    saveToFile(longUrl, shortUrl);
+    if (urlMap.find(shortUrl) != urlMap.end())
+    {
+        cerr << "Url already exists!" << endl;
+    }
+    else
+    {
+        urlMap[shortUrl] = longUrl;
+        saveUrl(longUrl, shortUrl);
+    }
 
     return shortUrl;
 }
@@ -58,7 +67,7 @@ string UrlShortener::toBase36(size_t hashVal)
     return result;
 }
 
-void UrlShortener::saveToFile(string longUrl, string shortUrl)
+void UrlShortener::saveUrl(string longUrl, string shortUrl)
 {
     ofstream file(dataFilePath, ios::app);
 
@@ -71,8 +80,25 @@ void UrlShortener::saveToFile(string longUrl, string shortUrl)
     file.close();
 }
 
-bool UrlShortener::loadFromFile()
+void UrlShortener::loadUrls()
 {
-    // TODO: implement
-    return false;
+    ifstream file(dataFilePath);
+
+    if (!file.is_open())
+    {
+        cerr << "Error: Could not append to file " << dataFilePath << endl;
+    }
+
+    string line;
+    while (getline(file, line))
+    {
+        size_t pos = line.find(',');
+        if (pos != string::npos)
+        {
+            string shortUrl = line.substr(0, pos);
+            string longUrl = line.substr(pos + 1);
+            urlMap[shortUrl] = longUrl;
+        }
+    }
+    file.close();
 }
