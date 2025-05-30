@@ -36,8 +36,6 @@ int main()
 
     cout << "Server starting on http://localhost:8080" << endl;
     server.listen("localhost", 8080);
-    // string shortUrl = urlShortner_obj.shortenUrl(testUrl);
-    // urlShortner_obj.expandUrl(shortUrl);
 
     return 0;
 }
