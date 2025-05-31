@@ -22,7 +22,12 @@ string UrlShortener::shortenUrl(string longUrl)
     // Store URL
     if (urlMap.find(shortUrl) != urlMap.end())
     {
-        cerr << "Url already exists!" << endl;
+        if (urlMap[shortUrl] == longUrl)
+        {
+            return shortUrl;
+        }
+        cerr << "Error: Hash collision!" << endl;
+        return "";
     }
     else
     {
@@ -88,7 +93,8 @@ void UrlShortener::loadUrls()
 
     if (!file.is_open())
     {
-        cerr << "Error: Could not append to file " << dataFilePath << endl;
+        cerr << "No existing URL file found. Starting fresh." << endl;
+        return;
     }
 
     string line;
