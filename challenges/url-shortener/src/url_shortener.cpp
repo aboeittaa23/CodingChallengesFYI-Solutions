@@ -35,6 +35,10 @@ string UrlShortener::shortenUrl(string longUrl)
 
 string UrlShortener::expandUrl(string shortUrl)
 {
+    if (urlMap.count(shortUrl) == 0)
+    {
+        return "";
+    }
     return urlMap[shortUrl];
 }
 
