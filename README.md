@@ -18,4 +18,4 @@ make clean              # Clean build files
 | #   | Challenge                                  | Language | Status      |
 | --- | ------------------------------------------ | -------- | ----------- |
 | 1   | [WC Tool](challenges/wc-tool/)             | C++      | Completed   |
-| 2   | [URL Shortener](challenges/url-shortener/) | C++      | In Progress |
+| 2   | [URL Shortener](challenges/url-shortener/) | C++      | Completed   |
