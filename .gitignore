@@ -60,3 +60,5 @@ Thumbs.db
 # Makefile output
 ccwc
 challenges/url-shortener/shortlink
+
+node_modules/
