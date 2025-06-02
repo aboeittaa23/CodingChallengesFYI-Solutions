@@ -5,19 +5,33 @@ const router = Router();
 const urlService = new UrlShortenerService();
 
 router.post("/shorten", (req: Request, res: Response) => {
-    const longUrl = req.body.url;
-    const shortUrl = urlService.shortenUrl(longUrl);
-    res.json({ shortUrl });
+    const { url } = req.body;
+    if (!url) {
+        return res.status(400).json({ error: "URL is required" });
+    }
+    try {
+        const shortUrl = urlService.shortenUrl(url);
+        res.json({
+            "Short Url": shortUrl,
+            "Long Url": url,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 router.get("/expand/:shortUrl", (req: Request, res: Response) => {
-    const shortUrl = req.params.shortUrl;
-    // Sanitize: Only allow 8-character alphanumeric strings
-    // if (!/^[a-zA-Z0-9]{8}$/.test(shortUrl)) {
-    //     return res.status(400).send("Invalid short URL format.");
-    // }
+    const { shortUrl } = req.params;
     const longUrl = urlService.expandUrl(shortUrl);
-    res.send(longUrl);
+
+    if (!longUrl) {
+        return res.status(404).json({ error: "Short URL not found" });
+    }
+
+    res.json({
+        "Short Url": shortUrl,
+        "Long Url": longUrl,
+    });
 });
 
 export default router;

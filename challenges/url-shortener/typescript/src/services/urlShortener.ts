@@ -7,15 +7,13 @@ export class UrlShortenerService {
         let shortUrl: string = this.generateShortUrl(longUrl);
 
         if (this.urlMap.has(shortUrl)) {
-            if (this.urlMap[shortUrl] == longUrl) {
+            if (this.urlMap.get(shortUrl) === longUrl) {
                 return shortUrl;
             }
-            console.error(
-                `Collision detected for URL: ${longUrl}. Generating a new short URL.`
-            );
-        } else {
-            this.urlMap.set(shortUrl, longUrl);
+            throw new Error(`Hash collision detected for ${longUrl}`);
         }
+
+        this.urlMap.set(shortUrl, longUrl);
         return shortUrl;
     }
 
