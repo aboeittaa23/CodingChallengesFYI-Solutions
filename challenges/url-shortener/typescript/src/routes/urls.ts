@@ -12,8 +12,8 @@ router.post("/shorten", (req: Request, res: Response) => {
     try {
         const shortUrl = urlService.shortenUrl(url);
         res.json({
-            "Short Url": shortUrl,
             "Long Url": url,
+            "Short Url": shortUrl,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
