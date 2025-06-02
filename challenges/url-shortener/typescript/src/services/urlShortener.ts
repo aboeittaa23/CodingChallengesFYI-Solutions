@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import * as crypto from "crypto";
 
 export class UrlShortenerService {
     private urlMap = new Map<string, string>();
@@ -14,16 +14,13 @@ export class UrlShortenerService {
                 `Collision detected for URL: ${longUrl}. Generating a new short URL.`
             );
         } else {
-            this.urlMap[shortUrl] = longUrl;
+            this.urlMap.set(shortUrl, longUrl);
         }
         return shortUrl;
     }
 
     expandUrl(shortUrl: string): string {
-        if (!this.urlMap.has(shortUrl)) {
-            return "";
-        }
-        return this.urlMap[shortUrl];
+        return this.urlMap.get(shortUrl) || "";
     }
 
     private generateShortUrl(longUrl: string): string {
