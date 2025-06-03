@@ -24,7 +24,7 @@ export class UrlShortenerService {
             throw new Error("Invalid URL format");
         }
 
-        const shortUrl: string = this.generateShortUrl(longUrl);
+        const shortUrl = this.generateShortUrl(longUrl);
 
         // Check for existing mapping
         if (this.urlMap.has(shortUrl)) {
