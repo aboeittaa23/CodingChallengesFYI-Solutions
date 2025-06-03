@@ -1,5 +1,11 @@
 import { Router, Request, Response } from "express";
 import { UrlShortenerService } from "../services/urlShortener";
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
+const PORT = process.env.PORT || 3000;
+const DOMAIN = process.env.DOMAIN || "http://localhost";
 
 const router = Router();
 const urlService = new UrlShortenerService();
@@ -15,7 +21,7 @@ router.post("/", (req: Request, res: Response) => {
         res.json({
             key: short_url,
             long_url: url,
-            short_url: `http://localhost:${process.env.PORT}/${short_url}`,
+            short_url: `${DOMAIN}:${PORT}/${short_url}`,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
