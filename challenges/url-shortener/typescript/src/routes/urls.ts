@@ -13,7 +13,7 @@ const urlService = new UrlShortenerService();
 router.post("/", (req: Request, res: Response) => {
     const { url } = req.body;
     if (!url) {
-        res.status(400).json({ error: "URL is required" });
+        res.status(400).send("Missing field: url\n");
         return;
     }
     try {
@@ -24,7 +24,7 @@ router.post("/", (req: Request, res: Response) => {
             short_url: `${DOMAIN}:${PORT}/${short_url}`,
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send(error.message);
         return;
     }
 });
