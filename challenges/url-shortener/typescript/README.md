@@ -22,7 +22,7 @@ make start    # Build and run production version
 
 ## API Endpoints
 
-The server runs on `http://localhost:3000`
+The server runs on `http://localhost:8080`
 
 ### Shorten a URL
 
@@ -31,26 +31,21 @@ POST /api/shorten
 Content-Type: application/json
 
 {
-  "url": "https://github.com/torvalds/linux"
+  "url": "https://www.example.com"
 }
 
 Response:
 {
-  "Long Url": "https://github.com/torvalds/linux",
-  "Short Url": "17fcd025"
+  "key":"e149be13",
+  "long_url":"https://www.example.com",
+  "short_url":"http://localhost:8080/e149be13"
 }
 ```
 
 ### Expand a short URL
 
 ```bash
-GET /api/expand/17fcd025
 
-Response:
-{
-  "Short Url": "17fcd025",
-  "Long Url": "https://github.com/torvalds/linux"
-}
 ```
 
 ## Example
@@ -60,10 +55,10 @@ Response:
 make dev
 
 # In another terminal, shorten a URL
-curl -X POST http://localhost:3000/api/shorten \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://github.com/torvalds/linux"}'
+curl -X POST http://localhost:8080/ \
+     -H "Content-Type: application/json" \
+     -d '{"url": "https://www.example.com"}'
 
 # Expand the short URL
-curl http://localhost:3000/api/expand/17fcd025
+curl http://localhost:8080/e149be13
 ```
