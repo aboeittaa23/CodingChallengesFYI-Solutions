@@ -15,7 +15,8 @@ make clean              # Clean build files
 
 ## Challenges
 
-| #   | Challenge                                  | Language | Status      |
-| --- | ------------------------------------------ | -------- | ----------- |
-| 1   | [WC Tool](challenges/wc-tool/)             | C++      | Completed   |
-| 2   | [URL Shortener](challenges/url-shortener/) | C++      | Completed   |
+| #   | Challenge                                            | Language   | Status      |
+| --- | ---------------------------------------------------- | ---------- | ----------- |
+| 1   | [WC Tool](challenges/wc-tool/)                       | C++        | Completed   |
+| 2   | [URL Shortener](challenges/url-shortener/cpp)        | C++        | Completed   |
+| 2   | [URL Shortener](challenges/url-shortener/typescript) | typescript | In progress |
