@@ -4,17 +4,18 @@ import { UrlShortenerService } from "../services/urlShortener";
 const router = Router();
 const urlService = new UrlShortenerService();
 
-router.post("/shorten", (req: Request, res: Response) => {
+router.post("/", (req: Request, res: Response) => {
     const { url } = req.body;
     if (!url) {
         res.status(400).json({ error: "URL is required" });
         return;
     }
     try {
-        const shortUrl = urlService.shortenUrl(url);
+        const short_url = urlService.shortenUrl(url);
         res.json({
-            "Long Url": url,
-            "Short Url": shortUrl,
+            key: short_url,
+            long_url: url,
+            short_url: `http://localhost:${process.env.PORT}/${short_url}`,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -22,18 +23,18 @@ router.post("/shorten", (req: Request, res: Response) => {
     }
 });
 
-router.get("/expand/:shortUrl", (req: Request, res: Response) => {
-    const { shortUrl } = req.params;
-    const longUrl = urlService.expandUrl(shortUrl);
+router.get("/:short_url", (req: Request, res: Response) => {
+    const { short_url } = req.params;
+    const long_url = urlService.expandUrl(short_url);
 
-    if (!longUrl) {
+    if (!long_url) {
         res.status(404).json({ error: "Short URL not found" });
         return;
     }
 
     res.json({
-        "Short Url": shortUrl,
-        "Long Url": longUrl,
+        short_url: short_url,
+        long_url: long_url,
     });
 });
 

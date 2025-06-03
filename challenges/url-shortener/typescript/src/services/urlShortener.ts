@@ -18,35 +18,35 @@ export class UrlShortenerService {
         this.loadUrls();
     }
 
-    shortenUrl(longUrl: string): string {
+    shortenUrl(long_url: string): string {
         // Validate URL
-        if (!this.isValidUrl(longUrl)) {
+        if (!this.isValidUrl(long_url)) {
             throw new Error("Invalid URL format");
         }
 
-        const shortUrl = this.generateShortUrl(longUrl);
+        const short_url = this.generateShortUrl(long_url);
 
         // Check for existing mapping
-        if (this.urlMap.has(shortUrl)) {
-            if (this.urlMap.get(shortUrl) === longUrl) {
-                return shortUrl;
+        if (this.urlMap.has(short_url)) {
+            if (this.urlMap.get(short_url) === long_url) {
+                return short_url;
             }
-            throw new Error(`Hash collision detected for ${longUrl}`);
+            throw new Error(`Hash collision detected for ${long_url}`);
         }
 
         // Save new mapping
-        this.urlMap.set(shortUrl, longUrl);
-        this.saveUrl(shortUrl, longUrl);
+        this.urlMap.set(short_url, long_url);
+        this.saveUrl(short_url, long_url);
 
-        return shortUrl;
+        return short_url;
     }
 
-    expandUrl(shortUrl: string): string {
-        const longUrl = this.urlMap.get(shortUrl);
-        if (!longUrl) {
+    expandUrl(short_url: string): string {
+        const long_url = this.urlMap.get(short_url);
+        if (!long_url) {
             throw new Error("Short URL not found");
         }
-        return longUrl;
+        return long_url;
     }
 
     private isValidUrl(url: string): boolean {
@@ -58,16 +58,16 @@ export class UrlShortenerService {
         }
     }
 
-    private generateShortUrl(longUrl: string): string {
+    private generateShortUrl(long_url: string): string {
         const hash = crypto
             .createHash(UrlShortenerService.HASH_ALGORITHM)
-            .update(longUrl)
+            .update(long_url)
             .digest("hex");
 
         return hash.substring(0, UrlShortenerService.SHORT_URL_LENGTH);
     }
 
-    private saveUrl(shortUrl: string, longUrl: string): void {
+    private saveUrl(short_url: string, long_url: string): void {
         try {
             // Ensure directory exists
             const dir = path.dirname(this.dataFilePath);
@@ -76,7 +76,7 @@ export class UrlShortenerService {
             }
 
             // Append to CSV file
-            const line = `${shortUrl},${longUrl}\n`;
+            const line = `${short_url},${long_url}\n`;
             fs.appendFileSync(this.dataFilePath, line);
         } catch (error) {
             throw new Error(`Could not append to file ${this.dataFilePath}`);
@@ -100,11 +100,11 @@ export class UrlShortenerService {
                     continue;
                 }
 
-                const shortUrl = line.substring(0, commaIndex);
-                const longUrl = line.substring(commaIndex + 1);
+                const short_url = line.substring(0, commaIndex);
+                const long_url = line.substring(commaIndex + 1);
 
-                if (shortUrl && longUrl) {
-                    this.urlMap.set(shortUrl, longUrl);
+                if (short_url && long_url) {
+                    this.urlMap.set(short_url, long_url);
                 }
             }
         } catch (error) {

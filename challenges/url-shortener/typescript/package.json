@@ -9,6 +9,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "dotenv": "^16.5.0",
         "express": "^5.1.0"
     },
     "devDependencies": {
@@ -19,5 +20,5 @@
         "tsx": "^4.19.4",
         "typescript": "^5.8.3"
     },
-    "description": ""
+    "description": "A TypeScript/Node.js implementation of a URL shortening service with REST API endpoints and file-based persistence."
 }
