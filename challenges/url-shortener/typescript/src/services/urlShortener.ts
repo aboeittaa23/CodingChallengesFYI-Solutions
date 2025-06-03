@@ -24,14 +24,20 @@ export class UrlShortenerService {
             throw new Error("Invalid URL format");
         }
 
-        const short_url = this.generateShortUrl(long_url);
+        let salt = 0;
+        let short_url = this.generateShortUrl(long_url);
 
         // Check for existing mapping
-        if (this.urlMap.has(short_url)) {
+        while (this.urlMap.has(short_url)) {
+            // If same URL already mapped, return existing
             if (this.urlMap.get(short_url) === long_url) {
                 return short_url;
             }
-            throw new Error(`Hash collision detected for ${long_url}`);
+            // Collision detected, try with salt
+            console.log(
+                `Collision detected for ${short_url}, trying with salt ${++salt}`
+            );
+            short_url = this.generateShortUrl(long_url, salt);
         }
 
         // Save new mapping
@@ -58,10 +64,12 @@ export class UrlShortenerService {
         }
     }
 
-    private generateShortUrl(long_url: string): string {
+    private generateShortUrl(long_url: string, salt: number = 0): string {
+        const input = salt > 0 ? `${long_url}${salt}` : long_url;
+
         const hash = crypto
             .createHash(UrlShortenerService.HASH_ALGORITHM)
-            .update(long_url)
+            .update(input)
             .digest("hex");
 
         return hash.substring(0, UrlShortenerService.SHORT_URL_LENGTH);
