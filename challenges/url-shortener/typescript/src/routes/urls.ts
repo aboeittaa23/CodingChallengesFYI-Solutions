@@ -34,7 +34,7 @@ router.get("/:short_url", (req: Request, res: Response) => {
 
     try {
         const long_url = urlService.expandUrl(short_url);
-        res.redirect(301, long_url);
+        res.redirect(302, long_url);
     } catch (error) {
         res.status(404).send("URL not found\n");
     }
