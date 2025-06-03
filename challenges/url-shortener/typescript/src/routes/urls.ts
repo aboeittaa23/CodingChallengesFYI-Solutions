@@ -32,6 +32,12 @@ router.post("/", (req: Request, res: Response) => {
 router.get("/:short_url", (req: Request, res: Response) => {
     const { short_url } = req.params;
 
+    // Validate format (8 alphanumeric chars)
+    if (!/^[a-z0-9]{8}$/.test(short_url)) {
+        res.status(400).send("Invalid short URL format\n");
+        return;
+    }
+
     try {
         const long_url = urlService.expandUrl(short_url);
         res.redirect(302, long_url);
