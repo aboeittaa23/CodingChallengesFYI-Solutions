@@ -59,7 +59,10 @@ export class UrlShortenerService {
     }
 
     private generateShortUrl(longUrl: string): string {
-        const hash = crypto.createHash("md5").update(longUrl).digest("hex");
+        const hash = crypto
+            .createHash(UrlShortenerService.HASH_ALGORITHM)
+            .update(longUrl)
+            .digest("hex");
 
         return hash.substring(0, UrlShortenerService.SHORT_URL_LENGTH);
     }
@@ -71,6 +74,8 @@ export class UrlShortenerService {
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
+
+            // Append line to CSV
             const line = `${shortUrl},${longUrl}\n`;
             fs.appendFileSync(this.dataFilePath, line);
         } catch (error) {
