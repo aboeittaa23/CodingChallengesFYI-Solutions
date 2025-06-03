@@ -31,17 +31,13 @@ router.post("/", (req: Request, res: Response) => {
 
 router.get("/:short_url", (req: Request, res: Response) => {
     const { short_url } = req.params;
-    const long_url = urlService.expandUrl(short_url);
 
-    if (!long_url) {
-        res.status(404).json({ error: "Short URL not found" });
-        return;
+    try {
+        const long_url = urlService.expandUrl(short_url);
+        res.redirect(301, long_url);
+    } catch (error) {
+        res.status(404).send("URL not found\n");
     }
-
-    res.json({
-        short_url: short_url,
-        long_url: long_url,
-    });
 });
 
 export default router;
