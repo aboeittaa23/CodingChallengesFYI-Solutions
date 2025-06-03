@@ -42,7 +42,11 @@ export class UrlShortenerService {
     }
 
     expandUrl(shortUrl: string): string {
-        return this.urlMap.get(shortUrl) || "";
+        const longUrl = this.urlMap.get(shortUrl);
+        if (!longUrl) {
+            throw new Error("Short URL not found");
+        }
+        return longUrl;
     }
 
     private isValidUrl(url: string): boolean {
@@ -56,16 +60,19 @@ export class UrlShortenerService {
 
     private generateShortUrl(longUrl: string): string {
         const hash = crypto.createHash("md5").update(longUrl).digest("hex");
-        return hash.substring(0, 8);
+
+        return hash.substring(0, UrlShortenerService.SHORT_URL_LENGTH);
     }
 
     private saveUrl(shortUrl: string, longUrl: string) {
         try {
+            // Ensure Directory exists
             const dir = path.dirname(this.dataFilePath);
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
-            fs.appendFileSync(this.dataFilePath, `${shortUrl},${longUrl}\n`);
+            const line = `${shortUrl},${longUrl}\n`;
+            fs.appendFileSync(this.dataFilePath, line);
         } catch (error) {
             throw new Error(`Could not append to file ${this.dataFilePath}`);
         }
