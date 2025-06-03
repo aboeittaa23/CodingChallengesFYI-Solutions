@@ -67,15 +67,15 @@ export class UrlShortenerService {
         return hash.substring(0, UrlShortenerService.SHORT_URL_LENGTH);
     }
 
-    private saveUrl(shortUrl: string, longUrl: string) {
+    private saveUrl(shortUrl: string, longUrl: string): void {
         try {
-            // Ensure Directory exists
+            // Ensure directory exists
             const dir = path.dirname(this.dataFilePath);
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
 
-            // Append line to CSV
+            // Append to CSV file
             const line = `${shortUrl},${longUrl}\n`;
             fs.appendFileSync(this.dataFilePath, line);
         } catch (error) {
@@ -83,21 +83,32 @@ export class UrlShortenerService {
         }
     }
 
-    private loadUrls() {
+    private loadUrls(): void {
         if (!fs.existsSync(this.dataFilePath)) {
-            console.error("No existing URL file found. Starting fresh.");
+            console.log(`Creating new URL database at ${this.dataFilePath}`);
             return;
         }
-        const data = fs.readFileSync(this.dataFilePath, "utf-8");
-        const lines = data.split("\n");
-        for (const line of lines) {
-            if (!line.trim()) continue; // skip empty lines
-            const pos = line.indexOf(",");
-            if (pos !== -1) {
-                const shortUrl = line.substring(0, pos);
-                const longUrl = line.substring(pos + 1);
-                this.urlMap.set(shortUrl, longUrl);
+
+        try {
+            const data = fs.readFileSync(this.dataFilePath, "utf-8");
+            const lines = data.split("\n").filter((line) => line.trim());
+
+            for (const line of lines) {
+                const commaIndex = line.indexOf(",");
+                if (commaIndex === -1) {
+                    console.warn(`Skipping invalid line: ${line}`);
+                    continue;
+                }
+
+                const shortUrl = line.substring(0, commaIndex);
+                const longUrl = line.substring(commaIndex + 1);
+
+                if (shortUrl && longUrl) {
+                    this.urlMap.set(shortUrl, longUrl);
+                }
             }
+        } catch (error) {
+            console.error(`Failed to load URLs: ${error.message}`);
         }
     }
 }
