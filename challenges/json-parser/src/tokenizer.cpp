@@ -11,6 +11,7 @@ enum TokenType
     OBJECT_END,   // }
     COLON,        // :
     COMMA,        // ,
+    OTHER
 };
 
 struct Token
@@ -22,12 +23,12 @@ struct Token
 class Tokenizer
 {
 private:
-    Token token;
     string json;
     int position;
 
 public:
-    Tokenizer(const string &input) : json(input), position(0) {}
+    Tokenizer(const string &input) : json(input),
+                                     position(0) {}
 
     Token getNextToken()
     {
@@ -42,33 +43,34 @@ public:
         if (c == '{')
         {
             token = {OBJECT_START, string(1, c)};
-            position++;
         }
         else if (c == '}')
         {
             token = {OBJECT_END, string(1, c)};
-            position++;
         }
         else if (c == ',')
         {
             token = {COMMA, string(1, c)};
-            position++;
         }
         else if (c == ':')
         {
             token = {COLON, string(1, c)};
-            position++;
         }
         else if (isdigit(c))
         {
             token.type = INT;
-            token.value = "";
             while (position < json.length() && isdigit(json[position]))
             {
                 token.value += json[position];
                 position++;
             }
+            return token;
         }
+        else
+        {
+            token = {OTHER, string(1, c)};
+        }
+        position++;
         return token;
     }
 };
