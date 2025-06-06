@@ -1,7 +1,7 @@
 #ifndef TOKENIZER_H
 #define TOKENIZER_H
 
-#include <iostream>
+#include <string>
 
 enum TokenType
 {
@@ -18,17 +18,17 @@ enum TokenType
 struct Token
 {
     TokenType type;
-    string value;
+    std::string value;
 };
 
 class Tokenizer
 {
 private:
-    string json;
+    std::string json;
     int position;
 
 public:
-    Tokenizer(const string &input);
+    Tokenizer(const std::string &input);
 
     Token getNextToken();
 };
