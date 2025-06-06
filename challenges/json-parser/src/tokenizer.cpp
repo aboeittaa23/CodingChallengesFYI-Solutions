@@ -33,9 +33,7 @@ public:
     {
         if (position >= json.size())
         {
-            token.type = END_OF_FILE;
-            token.value = "";
-            return token;
+            return Token{END_OF_FILE, ""};
         }
 
         Token token;
@@ -43,26 +41,22 @@ public:
 
         if (c == '{')
         {
-            token.type = OBJECT_START;
-            token.value = c;
+            token = {OBJECT_START, string(1, c)};
             position++;
         }
         else if (c == '}')
         {
-            token.type = OBJECT_END;
-            token.value = c;
+            token = {OBJECT_END, string(1, c)};
             position++;
         }
         else if (c == ',')
         {
-            token.type = COMMA;
-            token.value = c;
+            token = {COMMA, string(1, c)};
             position++;
         }
         else if (c == ':')
         {
-            token.type = COLON;
-            token.value = c;
+            token = {COLON, string(1, c)};
             position++;
         }
         else if (isdigit(c))
