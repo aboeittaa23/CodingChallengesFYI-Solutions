@@ -1,5 +1,5 @@
-#ifndef URL_SHORTENER_H
-#define URL_SHORTENER_H
+#ifndef JSON_PARSER_H
+#define JSON_PARSER_H
 
 class JsonParser
 {

@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 enum TokenType
 {
     END_OF_FILE,
