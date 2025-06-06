@@ -3,8 +3,9 @@
 
 using namespace std;
 
-Tokenizer::Tokenizer(const string &input) : json(input),
-                                            position(0) {}
+Tokenizer::Tokenizer(const string &input)
+    : json(input),
+      position(0) {}
 
 Token Tokenizer::getNextToken()
 {
