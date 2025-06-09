@@ -50,6 +50,18 @@ Token Tokenizer::getNextToken()
     {
         token = {COLON, string(1, c)};
     }
+    else if (c == '"')
+    {
+        token.type = STRING;
+        position++;
+        while (position < json.length() && json[position] != '"')
+        {
+            token.value += json[position];
+            position++;
+        }
+        position++;
+        return token;
+    }
     else if (isdigit(c))
     {
         token.type = INT;
