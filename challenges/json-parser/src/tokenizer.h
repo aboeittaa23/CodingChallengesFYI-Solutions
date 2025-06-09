@@ -25,12 +25,17 @@ class Tokenizer
 {
 private:
     std::string json;
+
     int position;
 
+    void reset();
+
 public:
-    Tokenizer(const std::string &input);
+    Tokenizer();
 
     Token getNextToken();
+
+    std::string loadJSONFile(const std::string &filename);
 };
 
 #endif

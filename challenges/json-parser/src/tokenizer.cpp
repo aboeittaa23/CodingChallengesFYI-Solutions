@@ -1,11 +1,28 @@
 #include "tokenizer.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
-Tokenizer::Tokenizer(const string &input)
-    : json(input),
+Tokenizer::Tokenizer()
+    : json(""),
       position(0) {}
+
+string Tokenizer::loadJSONFile(const string &filename)
+{
+    reset();
+
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Could not open file: " + filename);
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
 
 Token Tokenizer::getNextToken()
 {
@@ -49,4 +66,10 @@ Token Tokenizer::getNextToken()
     }
     position++;
     return token;
+}
+
+void Tokenizer::reset()
+{
+    json = "";
+    position = 0;
 }
