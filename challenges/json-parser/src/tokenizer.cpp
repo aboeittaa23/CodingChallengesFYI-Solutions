@@ -9,7 +9,7 @@ Tokenizer::Tokenizer()
     : json(""),
       position(0) {}
 
-string Tokenizer::loadJSONFile(const string &filename)
+void Tokenizer::loadJSONFile(const string &filename)
 {
     reset();
 
@@ -21,7 +21,7 @@ string Tokenizer::loadJSONFile(const string &filename)
 
     std::stringstream buffer;
     buffer << file.rdbuf();
-    return buffer.str();
+    json = buffer.str();
 }
 
 Token Tokenizer::getNextToken()

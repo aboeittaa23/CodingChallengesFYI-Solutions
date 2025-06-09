@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	Tokenizer tokenizer;
-	tokenizer.loadJSONFile("test.json");
+	tokenizer.loadJSONFile("src/test.json");
 
 	Token token;
 	while ((token = tokenizer.getNextToken()).type != END_OF_FILE)
