@@ -3,30 +3,38 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-	Tokenizer tokenizer;
-	tokenizer.loadJSONFile("src/test.json");
-
-	Token token;
-	while ((token = tokenizer.getNextToken()).type != END_OF_FILE)
+	if (argc != 2)
 	{
-		if (token.type != OTHER)
-		{
-			cout << "Token Type: " << token.type
-				 << ", Value: '" << token.value << "'" << endl;
-		}
+		cerr << "Usage: " << argv[0] << " <json_file>" << endl;
+		return 1;
 	}
 
-	tokenizer.loadJSONFile("src/test2.json");
-	while ((token = tokenizer.getNextToken()).type != END_OF_FILE)
+	string filename = argv[1];
+
+	try
 	{
-		if (token.type != OTHER)
+		Tokenizer tokenizer;
+		tokenizer.loadJSONFile(filename);
+
+		cout << "Tokenizing: " << filename << endl;
+		cout << "-------------------" << endl;
+
+		Token token;
+		while ((token = tokenizer.getNextToken()).type != END_OF_FILE)
 		{
-			cout << "Token Type: " << token.type
-				 << ", Value: '" << token.value << "'" << endl;
+			if (token.type != OTHER)
+			{
+				cout << "Token Type: " << token.type
+					 << ", Value: '" << token.value << "'" << endl;
+			}
 		}
 	}
-
+	catch (const exception &e)
+	{
+		cerr << "Error: " << e.what() << endl;
+		return 1;
+	}
 	return 0;
 }
